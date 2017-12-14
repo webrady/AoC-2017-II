@@ -9,15 +9,6 @@ private:
     int** spiral;
     int center;
     int length;
-    int targetX;
-    int targetY;
-
-    void isTarget(int target,int value,int x,int y){
-        if(target == value){
-            targetX = x;
-            targetY = y;
-        }
-    }
 public:
     Spiral(){
     }
@@ -36,46 +27,41 @@ public:
                 break;
             }
         }
+        //Set all spots to zero
+        //jk I'm done with this day for now, wish I chose a different language for this
         //Now to fill in the spiral
         int value = 1;
-        spiral[center][center] = value++;
+        spiral[center][center] = value;
         if(length > 1){
             for(int ring = 1;value < (length - 1) * (length - 1);ring++){
                 //RIGHT
                 for(int i = 0;i < ring * 2;i++){
                     spiral[center + ring][center + i - (ring -  1)] = value;
-                    this->isTarget(target,value,center + ring,center + i - (ring -  1));
                     value++;
                 }
                 //UP
                 for(int i = 0;i < ring * 2;i++){
                     spiral[center - i + (ring -  1)][center + ring] = value;
-                    this->isTarget(target,value,center - i + (ring -  1),center + ring);
                     value++;
                 }
                 //LEFT
                 for(int i = 0;i < ring * 2;i++){
                     spiral[center - ring][center - i + (ring -  1)] = value;
-                    this->isTarget(target,value,center - ring,center + i + (ring -  1));
                     value++;
                 }
                 //DOWN
                 for(int i = 0;i < ring * 2;i++){
                     spiral[center + i - (ring -  1)][center - ring] = value;
-                    this->isTarget(target,value,center + i - (ring -  1),center - ring);
                     value++;
                 }
             }
         }
     }
 
-    int getDist(){
-        return abs(center - targetX) + abs(center - targetY);
-    }
+
 };
 
 int main(){
     Spiral ayy = Spiral(265149);
-    cout << ayy.getDist();
     return 0;
 }
